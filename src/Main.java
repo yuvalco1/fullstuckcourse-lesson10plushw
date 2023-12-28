@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 public class Main {
     public static void main(String[] args) {
 
@@ -115,6 +116,63 @@ public class Main {
 
         System.out.println("After sorting: " + people);
 
+
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        int menuselection = 0;
+        while (menuselection != 9) {
+            System.out.println("Welcome to the Tasklist menu, Please choose an option: ");
+            System.out.println("1 - add new Task ; 2 - Remove Task ; 3 - View task list ; 4 - Mark task as completed; 5 - Complete most urgent task ; 9 - Quit");
+            menuselection = scanner.nextInt();
+            scanner.nextLine();
+            switch (menuselection) {
+                case 1:
+                    System.out.println("Please enter new task description: ");
+                    String taskDescription = scanner.nextLine();
+                    System.out.println("Please enter new task priority: ");
+                    Integer taskPriority = (Integer) scanner.nextInt();
+                    taskList.add(new Task(taskDescription,false,taskPriority));
+                    break;
+                case 2:
+                    System.out.println("Please enter task description to be removed: ");
+                    String removeDescription = scanner.nextLine();
+                    Iterator <Task> taskiterator = taskList.iterator();
+                    while (taskiterator.hasNext()) {
+                        if (taskiterator.next().getDescription().compareTo(removeDescription) ==0){
+                            taskiterator.remove();
+                            System.out.println("Task was removed successfully");
+
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.println(taskList);
+                    break;
+                case 4:
+                    System.out.println("Please enter task description to mark as completed: ");
+                    String completeDescription = scanner.nextLine();
+                    Iterator <Task> taskiterator2 = taskList.iterator();
+                    while (taskiterator2.hasNext()) {
+                        Task temp2 = taskiterator2.next();
+                        if (temp2.getDescription().compareTo(completeDescription) ==0){
+                            temp2.setComplete(true);
+                        }
+                    }
+                    break;
+
+                case 5:
+                    Collections.sort(taskList);
+                    taskList.getFirst().setComplete(true);
+                    System.out.println(taskList.getFirst());
+                    break;
+                case 9:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Please choose a valid option");
+                    break;
+            }
+        }
 
 
 
